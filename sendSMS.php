@@ -1,5 +1,5 @@
 <?php
-include('models/sms_nbs.class.php');
+include_once('models/sms_nbs.class.php');
 // include('models/databaseConnection.class.php');
 
 // $sndSMS=new SMS($sendername,$messagetext, $recipients);
@@ -9,7 +9,7 @@ include('models/sms_nbs.class.php');
 // attempt sending sms
 // report (message_report scheme)
 
-$c=0;$report='';
+$bal=0;$report='';
 
 $sms_msg=getSMSMessage();
 $sms_cfg=getConfigSettings('nbs');
@@ -20,11 +20,11 @@ try
   $sms=new sms_nbs($sms_cfg);
   foreach($sms_rpt as $rec)
   {
-    $c++;
     $msg='Hello '.$rec['ele_Name'].', '.$sms_msg.getTYurl();
     $rec['message']=$msg;
     //echo $c.'<br>';
     $sms->sendMessage('Osho4FCT',$msg,$rec['ele_Number']);
+    $bal=$sms->sms_balance;
     if ($sms->sms_status == 'success'){
       $report.=saveSuccess($rec,$sms->sms_result).'<br>';
     } else {
@@ -35,7 +35,8 @@ try
   trigger_error($e->getMessage());
 }
 
-die($report);
+echo $report;
+trigger_error('<b>Balance : </b>'. $bal,E_USER_ERROR);
 
 
 ///--------------------------------------------------
@@ -114,7 +115,7 @@ function getRecipients()
     if ($db->isLastQuerySuccessful()) {
       $con = $db->connect();
 
-      $sql = "SELECT eleID,ele_Name,ele_Number FROM ele_details WHERE eleID = 42";
+      $sql = "SELECT eleID,ele_Name,ele_Number FROM ele_details";
       $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
       // $stmt->bindparam(":lk", $nam, PDO::PARAM_STR);
       $stmt->execute();
@@ -185,7 +186,9 @@ function getTYurl()
 {
   $rtn='';
   $nt=rand(10,100);
-  $rtn=(($nt%2)==1)?'https://tinyurl.com/2s3wespn':'';
+  ////https://bit.ly/3Mp40qK Twitter
+  ///https://bit.ly/3CSlKrn Facebook
+  $rtn=(($nt%2)==1)?'https://bit.ly/3Mp40qK':'https://bit.ly/3CSlKrn';
   return $rtn;
 }
 

@@ -133,8 +133,8 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1) {
                 <div class="container">
                   <div class="row mb-2">
                     <div class="col-sm-6">
-                      <h1 class="m-0">OSHO for Senate FCT</h1>
-                      <!-- <h3 class="card-title" style="color:cadetblue;"><?php //echo userDetails(); ?></h3> -->
+                      <h1 class="m-0">Osho for Senate FCT</h1>
+                      <h3 class="card-title" style="color:cadetblue;"><?php echo userDetails(); ?></h3>
                     </div>
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
@@ -198,7 +198,7 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1) {
     </div>
 
   <?php } else {
-  die('<head><script LANGUAGE="JavaScript">window.location="index";</script></head>');
+  die('<head><script LANGUAGE="JavaScript">window.location="index.php";</script></head>');
 } ?>
 
   <script src="assets/js/jquery.min.js"></script>
@@ -437,7 +437,7 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1) {
   {
     $rtn = '';
     if (isset($_SESSION['fullname'])) {
-      $rtn = $_SESSION['fullname'] . " (" . $_SESSION['role'] . ")";
+      $rtn = ucwords($_SESSION['fullname']);
     } else {
       $rtn = 'No User Details';
     }

@@ -47,9 +47,9 @@ if (isset($_POST['deleteRec'])) {
           </div>
           <div class="col-sm-4">
             <?php if (isset($_REQUEST['v']) && ($_REQUEST['v'] == 'new' || $_REQUEST['v'] == 'edit' || $_REQUEST['v'] == 'disable')) { ?>
-              <a href="home?p=messages" class="btn btn-danger float-right">Back</a>
+              <a href="home.php?p=messages" class="btn btn-danger float-right">Back</a>
             <?php } else { ?>
-              <a href="home?p=messages&v=new" class="btn btn-secondary float-right">Create New Message</a>
+              <a href="home.php?p=messages&v=new" class="btn btn-secondary float-right">Create New Message</a>
             <?php } ?>
           </div>
         </div>
@@ -196,9 +196,9 @@ function getAccountRecords()
         $rID = $row['msgID'];
         
         $rtn .= '<tr><td>' . $r1 . '</td><td>' . $r2 . '...</td>'
-          . '<td><span class="badge badge-complete"><a href="home?p=messages&v=disable&rid=' . $rID . '">'
+          . '<td><span class="badge badge-complete"><a href="home.php?p=messages&v=disable&rid=' . $rID . '">'
           . '<i class="nav-icon fas fa-user-lock" title="Disable Message" style="color:red;"></i>'
-          . '</a></span><span class="badge badge-edit"><a href="home?p=messages&v=edit&rid=' . $rID . '">'
+          . '</a></span><span class="badge badge-edit"><a href="home.php?p=messages&v=edit&rid=' . $rID . '">'
           . '<i class="nav-icon fas fa-edit" title="Edit Message" style="color:blue;"></i></a></span></td></tr>';
       }
     } else {

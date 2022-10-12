@@ -53,7 +53,7 @@ if (isset($_REQUEST['submit']) && (isset($_REQUEST['vw']) && $_REQUEST['vw']=='p
             $stmt->execute($data);
             $db->closeConnection();
             //die('i enter here');
-            die('<head><script language="javascript">window.location="home";</script></head>');
+            die('<head><script language="javascript">window.location="home.php";</script></head>');
           }
         } else {
           $msg='Wrong username and password combination!';

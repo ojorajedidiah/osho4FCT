@@ -22,7 +22,7 @@ if (isset($_POST["upload"])) {
 
         $cCrt = canCreate($phn, $db);
         if (!$cCrt) {
-          trigger_error('Duplicate Phonenumber (<b>'.$phn.'</b>)!',E_USER_NOTICE);
+          $msg.='Duplicate Phonenumber (<b>'.$phn.'</b>)!<br>';
         } else {
           if ($db->isLastQuerySuccessful()) {
             $prg++;

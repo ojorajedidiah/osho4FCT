@@ -1,11 +1,9 @@
 <?php
-    include('error_handler.php');
-    include('models/databaseConnection.class.php');
-    include('includes/auditLogs.php');
-    $_SESSION['activePage']=basename($_SERVER['REQUEST_URI']);
-    session_start();
-    
-    //include('includes/auditLogs.php');
+  session_start();
+  include('error_handler.php');
+  include('models/databaseConnection.class.php');
+  include('includes/auditLogs.php');
+  // $_SESSION['activePage']=basename($_SERVER['REQUEST_URI']);
 ?>
 
 <!doctype html>
