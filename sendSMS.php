@@ -109,7 +109,7 @@ function getSMSMessage()
 
 function getRecipients()
 {
-  $rtn = array();$ctn=0;$nam='Leke';
+  $rtn = array();$ctn=0;
   try {
     $db = new connectDatabase();
     if ($db->isLastQuerySuccessful()) {

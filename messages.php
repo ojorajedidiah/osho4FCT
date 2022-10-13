@@ -132,7 +132,7 @@ function createNewMsg()
       $row = $stmt->execute();
 
       if ($row) {
-        $rtn = "The Message Template <b>[" . substr($_REQUEST['msgCategory'],0,25) . "...]</b> has been created!";
+        $rtn = "The Message Template <b>[" . substr($_REQUEST['msgBody'],0,25) . "...]</b> has been created!";
         //trigger_error($msg, E_USER_NOTICE);
       }
     } else {
