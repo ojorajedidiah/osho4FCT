@@ -1,9 +1,10 @@
 <?php 
 $qry='';
-$ip = getIPAddress();
-$userN = ucwords(strtolower($_SESSION['fullname']));
+
 
 if (isset($_REQUEST) && shdSaveLog()) {
+  $ip = getIPAddress();
+  $userN = ucwords(strtolower($_SESSION['fullname']));
   $qry = basename($_SERVER['REQUEST_URI']);
   $strW = json_encode($_REQUEST);
   $logD='Accessed by: ('.$userN .') URL: '.$qry.' [REQUEST: '.$strW.']';

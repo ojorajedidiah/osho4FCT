@@ -20,6 +20,9 @@
         <li class="nav-item">
           <a href="home.php?p=sendSMS" class="nav-link">Send Message</a>
         </li>
+        <li class="nav-item">
+          <a href="home.php?p=users" class="nav-link">Users</a>
+        </li>
         <li class="nav-item dropdown">
           <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Reports</a>
           <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">

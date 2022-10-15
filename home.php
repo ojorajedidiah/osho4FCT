@@ -353,78 +353,78 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1) {
   function getWeekCount()
   {
     $cnt = 0;
-    // try {
-    //   $db = new connectDatabase();
-    //   if ($db->isLastQuerySuccessful()) {
-    //     $con = $db->connect();
+    try {
+      $db = new connectDatabase();
+      if ($db->isLastQuerySuccessful()) {
+        $con = $db->connect();
   
-    //     $sql = "SELECT COUNT(guestID) as cnt FROM guests WHERE guestStatus = 'guest' AND guestVisitDate BETWEEN ".getDateRange('W');
-    //     $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+        $sql = "SELECT COUNT(eleSID) as cnt FROM ele_sms WHERE ele_sent_status LIKE 'Message sent%' AND ele_sent_date BETWEEN ".getDateRange('W');
+        $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
         
-    //     $stmt->execute();
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    //     $tmp=$stmt->fetch();
-    //     $cnt=(int) $tmp['cnt'];
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $tmp=$stmt->fetch();
+        $cnt=(int) $tmp['cnt'];
 
-    //   } else {
-    //     trigger_error($db->connectionError());
-    //   }
-    //   $db->closeConnection();
-    // } catch (Exception $e) {
-    //   trigger_error($db->connectionError());
-    // }
+      } else {
+        trigger_error($db->connectionError());
+      }
+      $db->closeConnection();
+    } catch (Exception $e) {
+      trigger_error($db->connectionError());
+    }
     return $cnt;
   }
 
   function getMonthCount()
   {
     $cnt = 0;
-    // try {
-    //   $db = new connectDatabase();
-    //   if ($db->isLastQuerySuccessful()) {
-    //     $con = $db->connect();
+    try {
+      $db = new connectDatabase();
+      if ($db->isLastQuerySuccessful()) {
+        $con = $db->connect();
   
-    //     $sql = "SELECT COUNT(guestID) as cnt FROM guests WHERE guestStatus = 'guest' AND guestVisitDate BETWEEN ".getDateRange('M');
-    //     $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+        $sql = "SELECT COUNT(eleSID) as cnt FROM ele_sms WHERE ele_sent_status LIKE 'Message sent%' AND ele_sent_date BETWEEN ".getDateRange('M');
+        $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
         
-    //     $stmt->execute();
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    //     $tmp=$stmt->fetch();
-    //     $cnt=(int) $tmp['cnt'];
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $tmp=$stmt->fetch();
+        $cnt=(int) $tmp['cnt'];
 
-    //   } else {
-    //     trigger_error($db->connectionError());
-    //   }
-    //   $db->closeConnection();
-    // } catch (Exception $e) {
-    //   trigger_error($db->connectionError());
-    // }
+      } else {
+        trigger_error($db->connectionError());
+      }
+      $db->closeConnection();
+    } catch (Exception $e) {
+      trigger_error($db->connectionError());
+    }
     return $cnt;
   }
 
   function getQuarterCount()
   {
     $cnt = 0;
-    // try {
-    //   $db = new connectDatabase();
-    //   if ($db->isLastQuerySuccessful()) {
-    //     $con = $db->connect();
+    try {
+      $db = new connectDatabase();
+      if ($db->isLastQuerySuccessful()) {
+        $con = $db->connect();
   
-    //     $sql = "SELECT COUNT(guestID) as cnt FROM guests WHERE guestStatus = 'guest' AND guestVisitDate BETWEEN ".getDateRange('Q');
-    //     $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+        $sql = "SELECT COUNT(eleSID) as cnt FROM ele_sms WHERE ele_sent_status LIKE 'Message sent%' AND ele_sent_date BETWEEN ".getDateRange('Q');
+        $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
         
-    //     $stmt->execute();
-    //     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    //     $tmp=$stmt->fetch();
-    //     $cnt=(int) $tmp['cnt'];
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $tmp=$stmt->fetch();
+        $cnt=(int) $tmp['cnt'];
 
-    //   } else {
-    //     trigger_error($db->connectionError());
-    //   }
-    //   $db->closeConnection();
-    // } catch (Exception $e) {
-    //   trigger_error($db->connectionError());
-    // }
+      } else {
+        trigger_error($db->connectionError());
+      }
+      $db->closeConnection();
+    } catch (Exception $e) {
+      trigger_error($db->connectionError());
+    }
     return $cnt;
   }
 
@@ -483,8 +483,9 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1) {
     $rg='';
     $rge=new DateTime();
     if ($intv == 'W'){
-      $rgs=new DateTime();      
-      $rgs->modify('-6 days');
+      $rgs=new DateTime();
+      $tp='-'.date('w').' days';
+      $rgs->modify($tp);
       $rg=" '".$rgs->format('Y-m-d')."' AND '".$rge->format('Y-m-d')."' ";
     } else if ($intv=='M'){
       $rg=" '".$rge->format('Y-m')."-01' AND '".$rge->format('Y-m-d')."' ";
