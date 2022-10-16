@@ -9,36 +9,38 @@ include_once('models/sms_nbs.class.php');
 // attempt sending sms
 // report (message_report scheme)
 
-$bal=0;$report='';
+if (isset($_SESSION['canSendSMS']) && $_SESSION['canSendSMS'] == 1) {
 
-$sms_msg=getSMSMessage();
-$sms_cfg=getConfigSettings('nbs');
-$sms_rpt=getRecipients();
+  $bal = 0;
+  $report = '';
 
-try
-{
-  $sms=new sms_nbs($sms_cfg);
-  foreach($sms_rpt as $rec)
-  {
-    $msg='Hello '.$rec['ele_Name'].', '.$sms_msg.getTYurl();
-    $rec['message']=$msg;
-    //echo $c.'<br>';
-    $sms->sendMessage('Osho4FCT',$msg,$rec['ele_Number']);
-    $bal=$sms->sms_balance;
-    if ($sms->sms_status == 'success'){
-      $report.=saveSuccess($rec,$sms->sms_result).'<br>';
-    } else {
-      $report.=handleSMSError($rec,$sms->sms_result).'<br>';
+  $sms_msg = getSMSMessage();
+  $sms_cfg = getConfigSettings('nbs');
+  $sms_rpt = getRecipients();
+
+  try {
+    $sms = new sms_nbs($sms_cfg);
+    foreach ($sms_rpt as $rec) {
+      $msg = 'Hello ' . $rec['ele_Name'] . ', ' . $sms_msg . getTYurl();
+      $rec['message'] = $msg;
+      //echo $c.'<br>';
+      $sms->sendMessage('Osho4FCT', $msg, $rec['ele_Number']);
+      $bal = $sms->sms_balance;
+      if ($sms->sms_status == 'success') {
+        $report .= saveSuccess($rec, $sms->sms_result) . '<br>';
+      } else {
+        $report .= handleSMSError($rec, $sms->sms_result) . '<br>';
+      }
     }
+  } catch (PDOException $e) {
+    trigger_error($e->getMessage());
   }
-} catch (PDOException $e) {
-  trigger_error($e->getMessage());
+
+  echo $report;
+  trigger_error('<b>Balance : </b>' . $bal, E_USER_ERROR);
+} else {
+  trigger_error('<b>You are not authorised to send SMS</b>' . $bal, E_USER_ERROR);
 }
-
-echo $report;
-trigger_error('<b>Balance : </b>'. $bal,E_USER_ERROR);
-
-
 ///--------------------------------------------------
 ///--------------- General functions ----------------
 ///--------------------------------------------------
