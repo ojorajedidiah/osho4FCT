@@ -21,8 +21,8 @@ if (isset($_SESSION['canSendSMS']) && $_SESSION['canSendSMS'] == 1) {
   try {
     $sms = new sms_nbs($sms_cfg);
     foreach ($sms_rpt as $rec) {
-      $msg = 'Hello ' . $rec['ele_Name'] . ', ' . $sms_msg . getTYurl();
-      $rec['message'] = $msg;
+      $msg = 'Hello, ' . $sms_msg . getTYurl();
+      //$rec['message'] = $msg;
       //echo $c.'<br>';
       $sms->sendMessage('Osho4FCT', $msg, $rec['ele_Number']);
       //$bal = $sms->sms_balance;
@@ -117,7 +117,7 @@ function getRecipients()
     if ($db->isLastQuerySuccessful()) {
       $con = $db->connect();
 
-      $sql = "SELECT eleID,ele_Name,ele_Number FROM ele_details";
+      $sql = "SELECT eleID,ele_Number FROM ele_details_temp";
       $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
       // $stmt->bindparam(":lk", $nam, PDO::PARAM_STR);
       $stmt->execute();
@@ -126,7 +126,7 @@ function getRecipients()
       foreach ($stmt->fetchAll() as $row) {
         $ctn++;
         $rtn[$ctn]['eleID']=$row['eleID'];
-        $rtn[$ctn]['ele_Name']=$row['ele_Name']; 
+        // $rtn[$ctn]['ele_Name']=$row['ele_Name']; 
         $rtn[$ctn]['ele_Number']=$row['ele_Number'];     
       }
     } else {

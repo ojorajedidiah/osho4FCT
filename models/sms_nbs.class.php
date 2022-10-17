@@ -53,7 +53,7 @@ class sms_nbs
     if ($result !== false) {
       $rst = json_decode($result);
       $this->sms_status = $this->getResult($rst);
-      $this->sms_balance=$this->getBalance();
+      //$this->sms_balance=$this->getBalance();
     }
     curl_close($curl);
   }
@@ -89,7 +89,7 @@ class sms_nbs
     $result = curl_exec($curl);
     if ($result !== false) {
       $rst = json_decode($result);
-      $rtn = $rst->balance;
+      $rtn = (isset($rst->balance))?$rst->balance:'0';
     }
     curl_close($curl);
     return $rtn;
