@@ -16,7 +16,7 @@ class sms_nbs
   //declaring SMS variables
   public $sms_status;
   public $sms_result = '';
-  public $sms_balance=0;
+  public $sms_balance = 0;
 
   protected $url;
   protected $username;
@@ -36,26 +36,32 @@ class sms_nbs
   //Function to connect to SMS sending server using HTTP POST
   public function sendMessage($sender, $message, $numbers)
   {
-    $sdr = $sender;
-    $msg = $message;
-    $num = $numbers;
+    try {
+      $sdr = $sender;
+      $msg = $message;
+      $num = $numbers;
 
-    $data = array('username' => $this->username, 'password' => $this->apikey, 'sender' => $sdr, 'message' => $msg, 'mobiles' => $num);
-    $data = http_build_query($data);
+      $data = array('username' => $this->username, 'password' => $this->apikey, 'sender' => $sdr, 'message' => $msg, 'mobiles' => $num);
+      $data = http_build_query($data);
 
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $this->url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+      $curl = curl_init();
+      curl_setopt($curl, CURLOPT_URL, $this->url);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($curl, CURLOPT_POST, true);
+      curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-    $result = curl_exec($curl);
-    if ($result !== false) {
-      $rst = json_decode($result);
-      $this->sms_status = $this->getResult($rst);
-      //$this->sms_balance=$this->getBalance();
+      $result = curl_exec($curl);
+      if ($result !== false) {
+        $rst = json_decode($result);
+        $this->sms_status = $this->getResult($rst);
+        //$this->sms_balance=$this->getBalance();
+      } else {
+        $this->sms_result = 'Connection Error '.json_decode($result);
+      }
+      curl_close($curl);
+    } catch (Exception $e) {
+      $this->sms_result = $e->getMessage();
     }
-    curl_close($curl);
   }
 
   private function getResult($res)
@@ -76,7 +82,7 @@ class sms_nbs
 
   private function getBalance()
   {
-    $rtn=0;
+    $rtn = 0;
     $data = array('username' => $this->username, 'password' => $this->apikey, 'action' => 'balance');
     $data = http_build_query($data);
 
@@ -89,10 +95,9 @@ class sms_nbs
     $result = curl_exec($curl);
     if ($result !== false) {
       $rst = json_decode($result);
-      $rtn = (isset($rst->balance))?$rst->balance:'0';
+      $rtn = (isset($rst->balance)) ? $rst->balance : '0';
     }
     curl_close($curl);
     return $rtn;
   }
-  
 }

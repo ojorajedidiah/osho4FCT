@@ -180,7 +180,7 @@ function saveSuccess($arr,$smsResult)
 
 function handleSMSError($arr,$smsResult)
 {
-  $rtn=$smsResult .'(' .$arr['ele_Number'].')';  
+  $rtn=$smsResult;  
   return $rtn;
 }
 
@@ -190,7 +190,9 @@ function getTYurl()
   $nt=rand(10,100);
   ////https://bit.ly/3Mp40qK Twitter
   ///https://bit.ly/3CSlKrn Facebook
-  $rtn=(($nt%2)==1)?'https://bit.ly/3Mp40qK':'https://bit.ly/3CSlKrn';
+  ///https://bit.ly/3MWEE3E website
+  $rtn=(($nt%2)==1)?'https://bit.ly/3MWEE3E':'https://bit.ly/3CSlKrn';
+  $rtn='https://bit.ly/3MWEE3E';
   return $rtn;
 }
 
