@@ -8,15 +8,7 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1) {
 <script>
   $(function() {
     $('.knob').knob({
-      /*change : function (value) {
-      //console.log("change : " + value);
-      },
-      release : function (value) {
-      console.log("release : " + value);
-      },
-      cancel : function () {
-      console.log("cancel : " + this.value);
-      },*/
+      
       draw: function() {
 
         // "tron" case
@@ -115,12 +107,11 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1) {
 </script>
 
   <style>
-    #grids.tbody th,
+      #grids.tbody th,
     #grids tbody td {
       height: 5px;
     }
   </style>
-
 
   <body class="hold-transition layout-top-nav">
     <div id="app">
@@ -197,9 +188,10 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1) {
       </footer>
     </div>
 
-  <?php } else {
+<?php } else {
   die('<head><script LANGUAGE="JavaScript">window.location="index.php";</script></head>');
-} ?>
+} 
+?>
 
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/bootstrap.bundle.min.js"></script>
@@ -452,26 +444,8 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 1) {
 
     if (isset($_GET["p"])) {
       $pageRequested = $_GET["p"];
-      //die('<br><br><br><br>');var_dump($_SESSION);
+      
       include($pageRequested . '.php');
-
-      // if (isset($_SESSION[$pageRequested])) {
-      //     $pagePriviledge = $_SESSION[$pageRequested];
-
-      //     // $fname = @file_get_contents($pagePriviledge . '/' . $pageRequested . '.php');
-      //     $fname=@file_get_contents($pageRequested . '.php');         
-
-      //     if ($fname === FALSE) {
-      //         $errormsg = 'PLEASE CONTACT YOUR ADMINISTRATOR TO ACCESS THIS PAGE!<br>...ACCESS DENIED...';
-      //     } else {
-      //         //die('<HEAD><SCRIPT lang="javascript">window.location="'.$pagePriviledge . '/' . $pageRequested .'.php";</SCRIPT></HEAD>');
-      //         // include($pagePriviledge . '/' . $pageRequested .'.php');
-      //         include($pageRequested .'.php');
-      //     }
-      // } else {
-      //     //$tmp=print_r(array_values($_SESSION));
-      //     $errormsg = 'YOU ARE NOT AUTHORISED TO VIEW THIS PAGE!<br>...ACCESS DENIED...';
-      // }
     }
     if ($errormsg != '') {
       echo '<center><br><span style="color:red; font-size:20pt;">' . $errormsg . '</span></center>';

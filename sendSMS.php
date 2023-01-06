@@ -1,4 +1,5 @@
 <?php
+include_once('models/sms_ebs.class.php');
 include_once('models/sms_nbs.class.php');
 // include('models/databaseConnection.class.php');
 
@@ -53,9 +54,9 @@ function getConfigSettings($smsType)
     if ($db->isLastQuerySuccessful()) {
       $con = $db->connect();
 
-      $sql = "SELECT ipa_unique_code,ipa_name,ipa_url,ipa_entry,ipa_code FROM sh_ipa WHERE ipa_unique_code=:nbs";
+      $sql = "SELECT ipa_unique_code,ipa_name,ipa_url,ipa_entry,ipa_code FROM sh_ipa WHERE ipa_unique_code=:code";
       $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
-      $stmt->bindparam(":nbs", $smsType, PDO::PARAM_STR);
+      $stmt->bindparam(":code", $smsType, PDO::PARAM_STR);
       $stmt->execute();
       $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -191,8 +192,14 @@ function getTYurl()
   ////https://bit.ly/3Mp40qK Twitter
   ///https://bit.ly/3CSlKrn Facebook
   ///https://bit.ly/3MWEE3E website
-  $rtn=(($nt%2)==1)?'https://bit.ly/3MWEE3E':'https://bit.ly/3CSlKrn';
-  $rtn='https://bit.ly/3MWEE3E';
+
+  if (($nt % 3) == 1) {
+    $rtn = 'https://bit.ly/3MWEE3E';
+  } elseif (($nt % 3) == 2) {
+    $rtn = 'https://bit.ly/3Mp40qK';
+  } else {
+    $rtn = 'https://bit.ly/3CSlKrn';
+  }
   return $rtn;
 }
 

@@ -5,7 +5,7 @@
 #***Name: Adeleke Ojora
 #***Email : ojorajedidiah@gmail.com
 #***Date created: 08/10/2022
-#***Date modified: 
+#***Date modified: 06/01/2023
 
 
 #   This class is an extension of the Nigeria Bulk SMS API. 
@@ -25,7 +25,7 @@ class sms_nbs
   //activating SMS
   function __construct($set_conf)
   {
-    $country_code = '234';
+    // $country_code = '234';
     $this->url = $set_conf['url'];
     $this->username = $set_conf['uname'];
     $this->apikey = $set_conf['apikey'];
@@ -40,6 +40,7 @@ class sms_nbs
       $sdr = $sender;
       $msg = $message;
       $num = $numbers;
+      $this->sms_status = 'error';
 
       $data = array('username' => $this->username, 'password' => $this->apikey, 'sender' => $sdr, 'message' => $msg, 'mobiles' => $num);
       $data = http_build_query($data);

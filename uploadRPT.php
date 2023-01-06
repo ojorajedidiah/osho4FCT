@@ -19,6 +19,7 @@ if (isset($_POST["upload"])) {
         $fnm = getFirstName($emapData[0]);
         $phn = $emapData[1];
         $wrd = $emapData[2];
+        $lga = $emapData[3];
 
         $cCrt = canCreate($phn, $db);
         if (!$cCrt) {
@@ -36,12 +37,13 @@ if (isset($_POST["upload"])) {
             // flush();
 
             $con = $db->connect();
-            $sql = "INSERT INTO ele_details (ele_Name,ele_Number,ele_Ward) VALUES (:eleN,:eleM,:eleW)";
+            $sql = "INSERT INTO ele_details (ele_Name,ele_Number,ele_Ward,ele_LGA) VALUES (:eleN,:eleM,:eleW:eleL)";
 
             $stmt = $con->prepare($sql);
             $stmt->bindparam(":eleN", $fnm, PDO::PARAM_STR);
             $stmt->bindparam(":eleM", $phn, PDO::PARAM_STR);
             $stmt->bindparam(":eleW", $wrd, PDO::PARAM_STR);
+            $stmt->bindparam(":eleL", $lga, PDO::PARAM_STR);
             $row = $stmt->execute();
 
             if ($row) {
