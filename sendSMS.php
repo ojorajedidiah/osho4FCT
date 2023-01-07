@@ -88,7 +88,7 @@ function getSMSMessage()
       $count = $con->query($sql)->fetchColumn();
 
       if ($count > 1 || $count == 0){
-        trigger_error('There is either <br><b>more than one message ready to be sent </b><br>or <b>no message to send</b>!',E_USER_ERROR);
+        trigger_error('There is either more than one message ready to be sent or no message to send!',E_USER_ERROR);
       } else {
         // now get the SMS message to send
         $sql = "SELECT msgID,msgBody,msgCategory,msgSpecialDate FROM message_template WHERE msgCategory = 'send'";
