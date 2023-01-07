@@ -252,6 +252,7 @@ function buildEditForm($id)
     $rtn .= '<select class="form-control" id="msgCategory" name="msgCategory" required>';
     $rtn.=($msg['msgCategory'] == "send")? '<option value="send" selected>Ready to Send</option>': '<option value="send">Ready to Send</option>';
     $rtn.=($msg['msgCategory'] == "do not send")? '<option value="do not send" selected>Not Ready to be Sent</option>': '<option value="do not send">Not Ready to be Sent</option>';
+    $rtn.=($msg['msgCategory'] == "already sent")? '<option value="already sent" selected>Already Sent</option>': '<option value="already sent">Already Sent</option>';
     $rtn .= '</select></div>';
 
     $rtn .= '<div class="form-group"><div class="form-group"><label for="msgScheduleDate">Scheduled SMS Date</label>';
@@ -273,7 +274,7 @@ function buildNewForm()
 {
   $rtn = '<div class="row"><div class="col-sm-6"><label for="msgCategory">Message Category</label><div class="form-group">';
   $rtn .= '<select class="form-control" id="msgCategory" name="msgCategory" required>';
-  $rtn .='<option value="send" selected>Ready to Send</option><option value="do not send">Not Ready to be Sent</option></select></div>';
+  $rtn .='<option value="send" selected>Ready to Send</option><option value="do not send">Not Ready to be Sent</option><option value="already sent">Already Sent</option></select></div>';
 
   $rtn .= '<div class="form-group"><div class="form-group"><label for="msgScheduleDate">Scheduled SMS Date</label>';
   $rtn .= '<input type="date" class="form-control" name="msgScheduleDate" id="msgScheduleDate"></div></div></div>';

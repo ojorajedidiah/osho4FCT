@@ -2,8 +2,6 @@
 
 set_time_limit(0);
 
-
-
 if (isset($_POST["upload"])) {
   $msg = '';
   $prg = 0;
@@ -14,9 +12,9 @@ if (isset($_POST["upload"])) {
 
     if ($_FILES["file"]["size"] > 0 && $_FILES["file"]["type"] == 'text/csv') {
       if (($file = fopen($filename, "r")) !== FALSE) {
-        $file = file($filename,FILE_SKIP_EMPTY_LINES);
-        // $tot = count($file);
-        die(var_dump(count($file)));
+        $file = fopen($filename, "r");
+        $tot = count(file($filename,FILE_SKIP_EMPTY_LINES));
+        // die(var_dump($tot));
 
         while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE) {
           $fnm = getFirstName($emapData[0]);
