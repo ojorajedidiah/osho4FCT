@@ -9,6 +9,7 @@ if (isset($_POST["upload"])) {
   try {
     $db = new connectDatabase();
     $filename = $_FILES["file"]["tmp_name"];
+    die(var_dump($_FILES["file"]["type"]));
 
     if ($_FILES["file"]["size"] > 0 && $_FILES["file"]["type"] == 'text/csv') {
       if (($file = fopen($filename, "r")) !== FALSE) {
