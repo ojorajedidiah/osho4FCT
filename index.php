@@ -6,6 +6,7 @@
 
 session_start();
 date_default_timezone_set("Africa/Lagos");
+set_time_limit(60);
 include('models/databaseConnection.class.php');
 $ip = $_SERVER['REMOTE_ADDR'];
 

@@ -9,6 +9,7 @@ include_once('models/sms_nbs.class.php');
 // select recipients records from db
 // attempt sending sms
 // report (message_report scheme)
+set_time_limit(12000);
 
 if (isset($_SESSION['canSendSMS']) && $_SESSION['canSendSMS'] == 1) {
 
