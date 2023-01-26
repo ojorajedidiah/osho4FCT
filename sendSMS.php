@@ -1,5 +1,5 @@
 <?php
-include_once('models/sms_ebs.class.php');
+// include_once('models/sms_ebs.class.php');
 include_once('models/sms_nbs.class.php');
 // include('models/databaseConnection.class.php');
 
@@ -12,6 +12,7 @@ include_once('models/sms_nbs.class.php');
 set_time_limit(12000);
 
 if (isset($_SESSION['canSendSMS']) && $_SESSION['canSendSMS'] == 1) {
+ 
 
   $bal = 0;
   $report = '';
@@ -21,11 +22,12 @@ if (isset($_SESSION['canSendSMS']) && $_SESSION['canSendSMS'] == 1) {
   $sms_rpt = getRecipients();
 
   try {
+    
     $sms = new sms_nbs($sms_cfg);
     foreach ($sms_rpt as $rec) {
       $msg = 'Hello ' . $rec['ele_Name'] . ', ' . $sms_msg . getTYurl();
       $rec['message'] = $msg;
-      //echo $c.'<br>';
+      // die('i enter here now '.$msg);
       $sms->sendMessage('Osho4FCT', $msg, $rec['ele_Number']);
       //$bal = $sms->sms_balance;
       if ($sms->sms_status == 'success') {
@@ -119,7 +121,7 @@ function getRecipients()
     if ($db->isLastQuerySuccessful()) {
       $con = $db->connect();
 
-      $sql = "SELECT eleID,ele_Name,ele_Number FROM ele_details";
+      $sql = "SELECT eleID,ele_Name,ele_Number FROM ele_details LIMIT 1";
       $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
       // $stmt->bindparam(":lk", $nam, PDO::PARAM_STR);
       $stmt->execute();

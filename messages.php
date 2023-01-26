@@ -219,7 +219,7 @@ function getSpecificGuest($rec)
     if ($db->isLastQuerySuccessful()) {
       $con = $db->connect();
 
-      $sql = "SELECT msgID,msgBody,msgCategory,msgSpecialDate FROM message_template WHERE msgID = :id";
+      $sql = "SELECT msgID,msgBody,msgCategory FROM message_template WHERE msgID = :id";
       $stmt = $con->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
       $stmt->bindparam(":id", $rec, PDO::PARAM_INT);
       $stmt->execute();
@@ -247,16 +247,16 @@ function buildEditForm($id)
   $msg = array();
   $msg = getSpecificGuest($id);
   if (is_array($msg) && count($msg) >= 1) {
-    $dat=new DateTime($msg['msgSpecialDate']);
+    // $dat=(is_null($msg['msgSpecialDate'])) ? '':new DateTime($msg['msgSpecialDate']);
     $rtn = '<div class="row"><div class="col-sm-6"><label for="msgCategory">Message Category</label><div class="form-group">';
     $rtn .= '<select class="form-control" id="msgCategory" name="msgCategory" required>';
     $rtn.=($msg['msgCategory'] == "send")? '<option value="send" selected>Ready to Send</option>': '<option value="send">Ready to Send</option>';
     $rtn.=($msg['msgCategory'] == "do not send")? '<option value="do not send" selected>Not Ready to be Sent</option>': '<option value="do not send">Not Ready to be Sent</option>';
     $rtn.=($msg['msgCategory'] == "already sent")? '<option value="already sent" selected>Already Sent</option>': '<option value="already sent">Already Sent</option>';
-    $rtn .= '</select></div>';
+    $rtn .= '</select></div></div>';
 
-    $rtn .= '<div class="form-group"><div class="form-group"><label for="msgScheduleDate">Scheduled SMS Date</label>';
-    $rtn .= '<input type="date" class="form-control" name="msgScheduleDate" id="msgScheduleDate" value="'.$dat->format('D d F, Y').'"></div></div></div>';
+    // $rtn .= '<div class="form-group"><div class="form-group"><label for="msgScheduleDate">Scheduled SMS Date</label>';
+    // $rtn .= '<input type="date" class="form-control" name="msgScheduleDate" id="msgScheduleDate" value="'.$dat->format('D d F, Y').'"></div></div>';
 
     $rtn .= '<div class="col-sm-6"><div class="form-group"><label for="msgBody">SMS Template</label>';
     $rtn .= '<textarea class="form-control" rows="6" name="msgBody" id="msgBody" spellcheck="true" required>'.$msg['msgBody'].'</textarea></div>';
@@ -356,7 +356,7 @@ function canSaveEdit()
   $oldRec = $_SESSION['oldRec'];
 
   $cse['msgBody'] = $_REQUEST['msgBody'];
-  $cse['msgScheduleDate'] = $_REQUEST['msgScheduleDate'];
+  // $cse['msgScheduleDate'] = $_REQUEST['msgScheduleDate'];
   $cse['msgCategory'] = $_REQUEST['msgCategory'];
 
   if (count(array_diff($oldRec, $cse)) >= 1) {
